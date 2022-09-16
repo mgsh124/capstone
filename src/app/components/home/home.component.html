@@ -1,0 +1,102 @@
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-sm-3">
+      <form #filterForm="ngForm" (ngSubmit)="submitForm()">
+        <div class="row mb-3">
+          <label for="genre" class="col-sm-2 col-form-label">Genre</label>
+          <div class="col-sm-10">
+            <select
+              [(ngModel)]="filter.genre"
+              id="genre"
+              name="genre"
+              class="form-select"
+            >
+              <option *ngFor="let item of genres" [value]="item.id">
+                {{ item.name }}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="rating" class="col-sm-2 col-form-label">Rating</label>
+          <div class="col-sm-10">
+            <input
+              type="range"
+              class="form-range"
+              min="1"
+              max="10"
+              id="rating"
+              name="rating"
+              [(ngModel)]="filter.rating"
+            />
+            <div class="form-text">Choose rating from 1 to 10</div>
+            <!-- <input
+              type="number"
+              id="rating"
+              name="rating"
+              [(ngModel)]="filter.rating"
+              class="form-control"
+            /> -->
+          </div>
+        </div>
+        <div class="row mb-3">
+          <label for="year" class="col-sm-2 col-form-label">Year</label>
+          <div class="col-sm-10">
+            <input
+              type="number"
+              id="year"
+              name="year"
+              [(ngModel)]="filter.year"
+              class="form-control"
+            />
+          </div>
+        </div>
+
+        <div class="col-12">
+          <button type="submit" class="btn btn-primary">Get results</button>
+        </div>
+      </form>
+    </div>
+    <div class="col-sm-9">
+      <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 g-4">
+        <div class="col" *ngFor="let item of movies">
+          <div class="card h-100">
+            <img
+              [src]="getImageSource(item.poster_path)"
+              class="card-img-top"
+              [alt]="item.title"
+            />
+            <div class="card-body">
+              <h5 class="card-title">
+                <a
+                  [routerLink]="['/details', item.id]"
+                  class="card-link text-decoration-none"
+                  >{{ item.title }}</a
+                >
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted fw-light">
+                <span class="badge rounded-pill text-bg-success">{{
+                  item.vote_average | number: "1.1-1"
+                }}</span>
+                {{ item.release_date | date: "y" }}
+              </h6>
+            </div>
+            <div class="card-footer text-center">
+              <a
+                (click)="addToWatchList(item)"
+                class="btn btn-outline-primary btn-sm"
+                [ngClass]="isInWatchList(item)"
+                >&CirclePlus; Watchlist</a
+              >
+              <a
+                [routerLink]="['/details', item.id]"
+                class="btn btn-outline-primary btn-sm ms-2"
+                >Details</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="container mb-5">
+  <div class="row">
+    <div class="col">
+      <div class="row row-cols-1 row-cols-sm-3 row-cols-md-4 g-4">
+        <div class="col" *ngFor="let item of _watchlist$ | async">
+          <div class="card h-100">
+            <img
+              [src]="getImageSource(item.poster_path)"
+              class="card-img-top"
+              [alt]="item.title"
+            />
+            <div class="card-body">
+              <h5 class="card-title">
+                <a
+                  [routerLink]="['/details', item.id]"
+                  class="card-link text-decoration-none"
+                  >{{ item.title }}</a
+                >
+              </h5>
+              <h6 class="card-subtitle mb-2 text-muted fw-light">
+                <span class="badge rounded-pill text-bg-success">{{
+                  item.vote_average | number: "1.1-1"
+                }}</span>
+                {{ item.release_date | date: "y" }}
+              </h6>
+            </div>
+            <div class="card-footer text-center">
+              <a
+                (click)="removeFromWatchList(item._id)"
+                class="btn btn-outline-primary btn-sm"
+                >&CircleMinus; Watchlist</a
+              >
+              <a
+                [routerLink]="['/details', item.id]"
+                class="btn btn-outline-primary btn-sm ms-2"
+                >Details</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

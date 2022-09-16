@@ -1,0 +1,47 @@
+<div class="container mb-5">
+  <div class="row">
+    <div class="col-sm-3">
+      <img
+        [src]="getImageSource(movieDetail?.poster_path)"
+        class="img-fluid rounded"
+        [alt]="movieDetail?.title"
+      />
+    </div>
+    <div class="col-sm-9">
+      <h2>
+        {{ movieDetail?.title }}
+        <span class="badge rounded-pill text-bg-primary">{{
+          movieDetail?.vote_average | number: "1.1-1"
+        }}</span>
+      </h2>
+      <h6>
+        <span class="text-muted">{{
+          movieDetail?.release_date | date: "mediumDate"
+        }}</span>
+        <span class="text-muted"
+          >&nbsp; &SmallCircle; {{ getGenresList() }}</span
+        >
+        <span class="text-muted"
+          >&nbsp; &SmallCircle; {{ movieDetail?.runtime }} mins</span
+        >
+      </h6>
+      <p>
+        <em>{{ movieDetail?.tagline ? "- " + movieDetail?.tagline : "" }}</em>
+      </p>
+      <h5 class="mt-4">Overview</h5>
+      <p>{{ movieDetail?.overview }}</p>
+      <!-- <a
+        (click)="addToWatchList(movieDetail)"
+        class="btn btn-primary btn-sm"
+        *ngIf="!isInWatchList(movieDetail)"
+        >&CirclePlus; Watchlist</a
+      >
+      <a
+        (click)="removeFromWatchList(movieDetail?._id)"
+        class="btn btn-primary btn-sm"
+        *ngIf="isInWatchList(movieDetail)"
+        >&CircleMinus; Watchlist</a
+      > -->
+    </div>
+  </div>
+</div>
